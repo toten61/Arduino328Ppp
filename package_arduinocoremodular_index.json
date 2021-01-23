@@ -21,7 +21,7 @@
                     "help": {
                         "online": "https://github.com/toten61/ArduinoCoreModular-avr/issues"
                     },
-                    "boards": [
+					"boards": [
 						{"name": "Arduino Yún"},
 						{"name": "Arduino Uno"},
 						{"name": "Arduino Uno WiFi"},
@@ -48,8 +48,8 @@
 						{"name": "Arduino Yún Mini"},
 						{"name": "Arduino Industrial 101"},
 						{"name": "Linino One"}
-                    ],
-				  "toolsDependencies": [
+					],
+					"toolsDependencies": [
 					{
 					  "packager": "arduino",
 					  "name": "avr-gcc",
