@@ -19,12 +19,9 @@
 
 #include <Arduino.h>
 
-#include "TimerInterrupts.h"
 // Declared weak in Arduino.h to allow user redefinitions.
 int atexit(void (* /*func*/ )()) { return 0; }
 
-void init() __attribute__((weak));
-//void init() {}
 // Weak empty variant initialization function.
 // May be redefined by variant files.
 void initVariant() __attribute__((weak));
@@ -32,14 +29,6 @@ void initVariant() { }
 
 void setupUSB() __attribute__((weak));
 void setupUSB() { }
-
-extern void serialEventRun(void) __attribute__((weak));
-
-int main(void) __attribute__((weak));
-
-//void Timer0_OVF_ISR(void) __attribute__((weak));
-//void Timer0_OVF_ISR(void) {} //default version
-
 
 int main(void)
 {

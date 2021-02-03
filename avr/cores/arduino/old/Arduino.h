@@ -138,7 +138,10 @@ int analogRead(uint8_t pin);
 void analogReference(uint8_t mode);
 void analogWrite(uint8_t pin, int val);
 
-
+unsigned long millis(void);
+unsigned long micros(void);
+void delay(unsigned long ms);
+void delayMicroseconds(unsigned int us);
 unsigned long pulseIn(uint8_t pin, uint8_t state, unsigned long timeout);
 unsigned long pulseInLong(uint8_t pin, uint8_t state, unsigned long timeout);
 
@@ -227,6 +230,7 @@ extern const uint8_t PROGMEM digital_pin_to_timer_PGM[];
 #ifdef __cplusplus
 #include "WCharacter.h"
 #include "WString.h"
+#include "HardwareSerial.h"
 #include "USBAPI.h"
 #if defined(HAVE_HWSERIAL0) && defined(HAVE_CDCSERIAL)
 #error "Targets with both UART0 and CDC serial not supported"

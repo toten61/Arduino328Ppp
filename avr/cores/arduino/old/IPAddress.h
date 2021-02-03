@@ -21,8 +21,6 @@
 #define IPAddress_h
 
 #include <stdint.h>
-
-#include "HardwareSerial.h"
 #include "Printable.h"
 #include "WString.h"
 
