@@ -1,5 +1,5 @@
 
-#include <Timer0.h>
+#include "./Timer2.h"
 
 namespace Atmega328Ppp
 {
@@ -21,33 +21,33 @@ namespace Atmega328Ppp
         *  7   | Fast PWM         | OCR2A  | BOTTOM          | TOP
         */
 
-        const WaveformMode0 WaveformMode0::Normal_Fixed = WaveformMode0::WaveformMode0(0x00, 0xFF),
-                            WaveformMode0::PWM_PhaseCorrect_Fixed = WaveformMode0::WaveformMode0(0x01, 0xFF),
-                            WaveformMode0::CTC_OCR0A = WaveformMode0::WaveformMode0(0x02, &OCR0A),
-                            WaveformMode0::PWM_Fast_Fixed = WaveformMode0::WaveformMode0(0x03, 0xFF),
-                            WaveformMode0::PWM_PhaseCorrect_OCR0A = WaveformMode0::WaveformMode0(0x05, &OCR0A),
-                            WaveformMode0::PWM_Fast_OCR0A = WaveformMode0::WaveformMode0(0x07, &OCR0A);
+        const WaveformMode2 WaveformMode2::Normal_Fixed = WaveformMode2::WaveformMode2(0x00, 0xFF),
+                            WaveformMode2::PWM_PhaseCorrect_Fixed = WaveformMode2::WaveformMode2(0x01, 0xFF),
+                            WaveformMode2::CTC_OCR2A = WaveformMode2::WaveformMode2(0x02, &OCR2A),
+                            WaveformMode2::PWM_Fast_Fixed = WaveformMode2::WaveformMode2(0x03, 0xFF),
+                            WaveformMode2::PWM_PhaseCorrect_OCR2A = WaveformMode2::WaveformMode2(0x05, &OCR2A),
+                            WaveformMode2::PWM_Fast_OCR2A = WaveformMode2::WaveformMode2(0x07, &OCR2A);
 
-        WaveformMode0::WaveformMode0(const uint8_t wgm, const uint8_t topv) : WaveformMode(wgm, topv)
+        WaveformMode2::WaveformMode2(const uint8_t wgm, const uint8_t topv) : WaveformMode(wgm, topv)
         {
         }
 
-        WaveformMode0::WaveformMode0(const uint8_t wgm, volatile uint8_t *const topp) : WaveformMode(wgm, topp)
+        WaveformMode2::WaveformMode2(const uint8_t wgm, volatile uint8_t *const topp) : WaveformMode(wgm, topp)
         {
         }
 
-        inline uint8_t WaveformMode0::TimerControlRegisterA() const
+        inline uint8_t WaveformMode2::TimerControlRegisterA() const
         {
             return m_mode & 0x03; //mask out all bits except the lowest 2 (WGM21:0)
         }
 
-        inline uint8_t WaveformMode0::TimerControlRegisterB() const
+        inline uint8_t WaveformMode2::TimerControlRegisterB() const
         {
             return (m_mode & 0x04) << 1; //mask out all bits except the third bit and shift to position of 4th bit
         }
 
         namespace {
-            uint8_t TimerControlRegisterB(const Prescaler0 &p)
+            uint8_t TimerControlRegisterB(const Prescaler2 &p)
             {
                 return (((uint8_t)p) & 0x07); //mask out all bits except the lowest 3 (CS22:0)
             }
@@ -58,31 +58,31 @@ namespace Atmega328Ppp
             }
         }
 
-        Timer0::Timer0(const WaveformMode0 &waveformMode, const Prescaler0& prescaler) 
+        Timer2::Timer2(const WaveformMode2 &waveformMode, const Prescaler2& prescaler) 
         :
         TemplateTimer(waveformMode, prescaler)
         {
-            initCompareChannel(Channel::A, &OCR0A);
-            initCompareChannel(Channel::B, &OCR0B);      
+            initCompareChannel(Channel::A, &OCR2A);
+            initCompareChannel(Channel::B, &OCR2B);      
         }
 
-        void Timer0::activate(const uint8_t &newTop, bool enOvflInt)
+        void Timer2::activate(const uint8_t &newTop, bool enOvflInt)
         {
             //reset all timer registers to stop any running config
             //also, we dont want to start with these registers because the timer will start running as soon as the prescaler values are set
-            TCCR0A = 0; 
-            TCCR0B = 0;             
-            TCNT0 = 0; //reset counter
-            TIMSK0 = 0; //reset all interrupts
+            TCCR2A = 0; 
+            TCCR2B = 0;             
+            TCNT2 = 0; //reset counter
+            TIMSK2 = 0; //reset all interrupts
 
-            TIMSK0 = (enOvflInt & 0x1) << TOIE0;
+            TIMSK2 = (enOvflInt & 0x1) << TOIE2;
             //if waveform mode allows it, set ICR1 or OCR1A
             updateTimerTop(newTop);
           
 
             //set the last missing values, starting the timer
-            TCCR0A |= m_waveformMode.TimerControlRegisterA();
-            TCCR0B = m_waveformMode.TimerControlRegisterB() | TimerControlRegisterB(m_prescaler);
+            TCCR2A |= m_waveformMode.TimerControlRegisterA();
+            TCCR2B = m_waveformMode.TimerControlRegisterB() | TimerControlRegisterB(m_prescaler);
         }
 
         /*
@@ -95,25 +95,29 @@ namespace Atmega328Ppp
         }
         */
         
-        void Timer0::activateCompareChannel(const Channel& channel, const uint8_t& compareValue, const CompareOutputMode& outputMode, const bool enableInterrupt) {
+        void Timer2::activateCompareChannel(const Channel& channel, const uint8_t& compareValue, const CompareOutputMode& outputMode, const bool enableInterrupt) {
             if(channel > Channel::B) return;
-            TCCR0A |= TimerControlRegisterA(channel, outputMode);
+            TCCR2A |= TimerControlRegisterA(channel, outputMode);
             bool channelA = channel == Channel::A;
-            TIMSK0 |= (enableInterrupt & 0x01) << (channelA ? OCIE0A : OCIE0B);
+            TIMSK2 |= (enableInterrupt & 0x01) << (channelA ? OCIE2A : OCIE2B);
 
             updateCompareValue(channel, compareValue);
         }
 
         /*
             Configure the pin associated with the output compare channel as an output so it is usable as an output.
-            For timer 2 this is pin PD6 (D6) or pin PD5 (D5)
+            For timer 2 this is pin PD3 (D3) or pin PB3 (D11)
 
         */
-        void Timer0::activateOutputPin(const Channel& channel) {
+        void Timer2::activateOutputPin(const Channel& channel) {
             if(channel > Channel::B) return;
-            uint8_t bitOffset = channel == Channel::A ? PD6 : PD5;
-            PORTB &= ~(1u << bitOffset); //clear port b bit to make sure the pullup is off
-            DDRB |= 1u << bitOffset; // set data direction register for pin to OUTPUT
+            if(channel == Channel::A) {
+                PORTB &= ~(1 << PB3); //clear port b bit to make sure the pullup is off
+                DDRB |= 1u << PB3; // set data direction register for pin to OUTPUT
+            } else {
+                PORTD &= ~(1 << PD3); //clear port b bit to make sure the pullup is off
+                DDRD |= 1u << PD3; // set data direction register for pin to OUTPUT
+            }
             
         }
     } // namespace Timer

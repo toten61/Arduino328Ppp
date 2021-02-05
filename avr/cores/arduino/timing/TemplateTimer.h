@@ -1,6 +1,6 @@
 #pragma once
 
-#include <arduino.h>
+//#include <Arduino.h>
 
 namespace Atmega328Ppp {
     namespace Timer {
@@ -113,10 +113,6 @@ namespace Atmega328Ppp {
             if(channelInd > CHAN) return;
 
             *(m_channelStates[channelInd].m_compareRegister) = newTop;
-            Serial.print("Update cmp val: (");
-            Serial.print((int)m_channelStates[channelInd].m_compareRegister);
-            Serial.print("): ");
-            Serial.println(*(m_channelStates[channelInd].m_compareRegister));
         }
 
         template <typename RES, typename WFM, typename PRE, unsigned int CHAN>

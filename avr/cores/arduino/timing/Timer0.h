@@ -2,7 +2,7 @@
 
 #include <arduino.h>
 
-#include <TemplateTimer.h>
+#include "./TemplateTimer.h"
 
 namespace Atmega328Ppp {
 
@@ -11,47 +11,47 @@ namespace Atmega328Ppp {
         * Structure encapsulated the different waveform operation modes of the Timer 2
         * According to Atmega 328P datasheet page 130 these modes have the following properties:
         * 
-        * Mode | Operation Mode   |  TOP   | Update OCR2x at | TOV2 Flag Set on
+        * Mode | Operation Mode   |  TOP   | Update OCR0x at | TOV0 Flag Set on
         *  0   | Normal           |  0xFF  | Immediate       | MAX
         *  1   | Phase Correct PWM|  0xFF  | TOP             | BOTTOM
-        *  2   | CTC              |  OCR2A | Immediate       | MAX
+        *  2   | CTC              |  OCR0A | Immediate       | MAX
         *  3   | Fast PWM         |  0xFF  | BOTTOM          | MAX
         *  4   | Reserved         |   -    |   -             |  - 
-        *  5   | Phase Correct PWM| OCR2A  | TOP             | BOTTOM
+        *  5   | Phase Correct PWM| OCR0A  | TOP             | BOTTOM
         *  6   | Reserved         |   -    | -               |  -
-        *  7   | Fast PWM         | OCR2A  | BOTTOM          | TOP
+        *  7   | Fast PWM         | OCR0A  | BOTTOM          | TOP
         */
-        class WaveformMode2 : public WaveformMode<uint8_t> {
+        class WaveformMode0 : public WaveformMode<uint8_t> {
 
         public: 
-            static const WaveformMode2 
+            static const WaveformMode0 
                 Normal_Fixed,
                 PWM_PhaseCorrect_Fixed,
-                CTC_OCR2A,
+                CTC_OCR0A,
                 PWM_Fast_Fixed,
-                PWM_PhaseCorrect_OCR2A,
-                PWM_Fast_OCR2A;
+                PWM_PhaseCorrect_OCR0A,
+                PWM_Fast_OCR0A;
           
           inline uint8_t TimerControlRegisterA() const;
           inline uint8_t TimerControlRegisterB() const;
         private:
-            WaveformMode2(const uint8_t wgm, const uint8_t topv);
-            WaveformMode2(const uint8_t wgm, volatile uint8_t *const topp);
+            WaveformMode0(const uint8_t wgm, const uint8_t topv);
+            WaveformMode0(const uint8_t wgm, volatile uint8_t *const topp);
         };
 
-        enum class Prescaler2 {
+        enum class Prescaler0 {
             None = 0x00,
             Div1 = 0x01,
             Div8 = 0x02,
-            Div32 = 0x03,
-            Div64 = 0x04,
-            Div128 = 0x05,
-            Div256 = 0x06,
-            Div1024 = 0x07
+            Div64 = 0x03,
+            Div256 = 0x04,
+            Div1024 = 0x05,
+            ExtFallingEdgeT0 = 0x06,
+            ExtRisingEdgeT0 = 0x07
         };
 
 
-        class Timer2 : public TemplateTimer<uint8_t, WaveformMode2, Prescaler2, 2> {
+        class Timer0 : public TemplateTimer<uint8_t, WaveformMode0, Prescaler0, 2> {
         
             /*
             * 
@@ -68,10 +68,10 @@ namespace Atmega328Ppp {
             * Additionally for phase correct and for phase & frequency correct PWM the Clear and set mode may be inverted depending on the counting direction
             */
         public:
-            Timer2() = delete;
-            Timer2(
-                const WaveformMode2& waveformMode,
-                const Prescaler2& p);
+            Timer0() = delete;
+            Timer0(
+                const WaveformMode0& waveformMode,
+                const Prescaler0& p);
 
             //set register values
             virtual void activate(const uint8_t& ttop,
