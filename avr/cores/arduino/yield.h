@@ -23,6 +23,4 @@
     was initially written and published by the Arduino team
 */
 
-namespace Arduino {
-    void yield(void);
-};
+void yield(void);

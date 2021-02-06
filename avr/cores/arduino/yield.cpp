@@ -25,12 +25,10 @@
  * Its defined as a weak symbol and it can be redefined to implement a
  * real cooperative scheduler.
  */
-static void __empty() {
+extern "C" {
+  static void __empty() {
   // Empty
+  }
 }
 
-namespace Arduino {
-  
-
-  void yield(void) __attribute__ ((weak, alias("__empty"))); //HELP
-}
+void yield(void) __attribute__ ((weak, alias("__empty"))); //HELP
