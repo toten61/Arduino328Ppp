@@ -2,7 +2,8 @@
   wiring.c - Partial implementation of the Wiring API for the ATmega8.
   Part of Arduino - http://www.arduino.cc/
 
-  Copyright (c) 2005-2006 David A. Mellis
+  Most Code: Copyright (c) 2005-2006 David A. Mellis
+  Parts: Copyright (c) 2021 toten61
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
@@ -19,6 +20,15 @@
   Free Software Foundation, Inc., 59 Temple Place, Suite 330,
   Boston, MA  02111-1307  USA
 */
+
+/*
+    Note (toten61): This file was created by me, but parts of the content
+    were initially written by David A. Mellis and distributed as 
+	part of the Arduino SDK.
+
+	Other parts contain modifications and additions to the original code which were written by me. 
+*/
+
 #include "./ArduinoTiming.h"
 
 #include <Arduino.h>

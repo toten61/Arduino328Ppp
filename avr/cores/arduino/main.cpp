@@ -17,6 +17,9 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+/*
+  Note(toten61): The file contains modifications to enable my more modular version of the Arduino SDK
+*/
 #include <Arduino.h>
 
 int main(void)
