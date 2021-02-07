@@ -130,6 +130,22 @@ extern "C"{
 #define _NOP() do { __asm__ volatile ("nop"); } while (0)
 #endif
 
+
+#define NOT_A_PIN 0
+#define NOT_A_PORT 0
+
+#define NOT_AN_INTERRUPT -1
+
+#define NOT_ON_TIMER 0
+#define TIMER0A 1
+#define TIMER0B 2
+#define TIMER1A 3
+#define TIMER1B 4
+#define TIMER1C 5
+#define TIMER2  6
+#define TIMER2A 7
+#define TIMER2B 8
+
 typedef unsigned int word;
 
 #define bit(b) (1UL << (b))
