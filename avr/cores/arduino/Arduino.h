@@ -162,4 +162,8 @@ extern void serialEventRun(void) __attribute__((weak));
 
 #ifdef __cplusplus
 } // extern "C"
+
+
+#include "pins_arduino.h"
+
 #endif
