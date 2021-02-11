@@ -158,6 +158,8 @@ void setup(void);
 void loop(void);
 
 
+extern void serialEventRun(void) __attribute__((weak));
+
 #ifdef __cplusplus
 } // extern "C"
 #endif
