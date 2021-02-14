@@ -131,7 +131,7 @@ namespace Atmega328Ppp
 
         /*
             Configure the pin associated with the output compare channel as an output so it is usable as an output.
-            For timer 2 this is pin PD3 (D3) or pin PB3 (D11)
+            For timer 2 this is pin PB3 (D11) for channel A or pin PD3 (D3) for channel B
 
         */
         void Timer2::activateOutputPin(const Channel& channel) {
