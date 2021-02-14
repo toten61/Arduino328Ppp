@@ -29,9 +29,9 @@
 
 #include "./TemplateTimer.h"
 
-namespace Atmega328Ppp {
+namespace Arduino328Ppp {
 
-    namespace Timer {
+    namespace Timing {
         /*
         * According to Atmega 328P datasheet page 109 these modes have the following uses:
         * 

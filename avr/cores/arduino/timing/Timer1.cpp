@@ -26,10 +26,10 @@
     as the Official Arduino SDK: LGPL 2.1 or later
 */
 
-namespace Atmega328Ppp
+namespace Arduino328Ppp
 {
 
-    namespace Timer
+    namespace Timing
     {
         
         /*

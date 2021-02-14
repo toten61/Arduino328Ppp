@@ -29,9 +29,9 @@
 
 #include "./TemplateTimer.h"
 
-namespace Atmega328Ppp {
+namespace Arduino328Ppp {
 
-    namespace Timer {
+    namespace Timing {
         /*
         * Structure encapsulated the different waveform operation modes of the Timer 2
         * According to Atmega 328P datasheet page 130 these modes have the following properties:

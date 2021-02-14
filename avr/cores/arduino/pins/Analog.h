@@ -26,7 +26,7 @@
 #include <Arduino.h>
 #include "./PinMode.h"
 
-namespace Arduino::Pins {
+namespace Arduino328Ppp::Pins {
     int analogRead(uint8_t pin);
     void analogReference(uint8_t mode);
     void analogWrite(uint8_t pin, int val);

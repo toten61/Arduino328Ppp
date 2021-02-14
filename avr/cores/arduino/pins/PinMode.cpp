@@ -33,7 +33,7 @@
 #define ARDUINO_MAIN
 #include "pins_arduino.h"
 
-void Arduino::Pins::pinMode(uint8_t pin, uint8_t mode)
+void Arduino328Ppp::Pins::pinMode(uint8_t pin, uint8_t mode)
 {
 	uint8_t bit = digitalPinToBitMask(pin);
 	uint8_t port = digitalPinToPort(pin);

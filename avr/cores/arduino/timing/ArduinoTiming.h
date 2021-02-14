@@ -25,7 +25,7 @@
 
 #include "./Timer0.h"
 
-namespace Arduino::Timing {
+namespace Arduino328Ppp::Timing {
 
     void init();
 
@@ -112,7 +112,7 @@ ISR(TIMER0_OVF_vect)
 	timer0_overflow_count++;
 }
 
-unsigned long Arduino::Timing::millis()
+unsigned long Arduino328Ppp::Timing::millis()
 {
 	unsigned long m;
 	uint8_t oldSREG = SREG;
@@ -126,7 +126,7 @@ unsigned long Arduino::Timing::millis()
 	return m;
 }
 
-unsigned long Arduino::Timing::micros() {
+unsigned long Arduino328Ppp::Timing::micros() {
 	unsigned long m;
 	uint8_t oldSREG = SREG, t;
 	
@@ -153,7 +153,7 @@ unsigned long Arduino::Timing::micros() {
 	return ((m << 8) + t) * (64 / clockCyclesPerMicrosecond());
 }
 
-void Arduino::Timing::delay(unsigned long ms)
+void Arduino328Ppp::Timing::delay(unsigned long ms)
 {
 	uint32_t start = micros();
 
@@ -167,7 +167,7 @@ void Arduino::Timing::delay(unsigned long ms)
 }
 
 /* Delay for the given number of microseconds.  Assumes a 1, 8, 12, 16, 20 or 24 MHz clock. */
-void Arduino::Timing::delayMicroseconds(unsigned int us)
+void Arduino328Ppp::Timing::delayMicroseconds(unsigned int us)
 {
 	// call = 4 cycles + 2 to 4 cycles to init us(2 for constant delay, 4 for variable)
 
@@ -288,7 +288,7 @@ void Arduino::Timing::delayMicroseconds(unsigned int us)
 	// return = 4 cycles
 }
 
-void Arduino::Timing::init()
+void Arduino328Ppp::Timing::init()
 {
 	// this needs to be called before setup() or some functions won't
 	// work there

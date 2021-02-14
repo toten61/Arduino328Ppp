@@ -58,6 +58,6 @@ extern const uint8_t PROGMEM digital_pin_to_timer_PGM[];
 };
 
 
-namespace Arduino::Pins {
+namespace Arduino328Ppp::Pins {
     void pinMode(uint8_t pin, uint8_t mode);
 }

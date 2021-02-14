@@ -22,8 +22,8 @@
     This file is part of my (toten61) fork/modification of the official Arduino SDK.
     It uses the same license as the Official Arduino SDK: LGPL 2.1 or later
 */
-namespace Atmega328Ppp {
-    namespace Timer {
+namespace Arduino328Ppp {
+    namespace Timing {
 
         template<typename RES>
         class WaveformMode {

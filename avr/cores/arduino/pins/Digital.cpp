@@ -104,7 +104,7 @@ static void turnOffPWM(uint8_t timer)
 	}
 }
 
-void Arduino::Pins::digitalWrite(uint8_t pin, uint8_t val)
+void Arduino328Ppp::Pins::digitalWrite(uint8_t pin, uint8_t val)
 {
 	uint8_t timer = digitalPinToTimer(pin);
 	uint8_t bit = digitalPinToBitMask(pin);
@@ -133,7 +133,7 @@ void Arduino::Pins::digitalWrite(uint8_t pin, uint8_t val)
 
 
 
-int Arduino::Pins::digitalRead(uint8_t pin)
+int Arduino328Ppp::Pins::digitalRead(uint8_t pin)
 {
 	uint8_t timer = digitalPinToTimer(pin);
 	uint8_t bit = digitalPinToBitMask(pin);

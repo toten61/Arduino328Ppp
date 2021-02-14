@@ -27,7 +27,7 @@
 #include "./PinMode.h"
 
 
-namespace Arduino::Pins {
+namespace Arduino328Ppp::Pins {
     void digitalWrite(uint8_t pin, uint8_t val);
     int digitalRead(uint8_t pin);
 }

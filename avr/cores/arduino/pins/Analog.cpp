@@ -35,7 +35,7 @@
 
 uint8_t analog_reference = DEFAULT;
 
-void Arduino::Pins::analogReference(uint8_t mode)
+void Arduino328Ppp::Pins::analogReference(uint8_t mode)
 {
 	// can't actually set the register here because the default setting
 	// will connect AVCC and the AREF pin, which would cause a short if
@@ -43,7 +43,7 @@ void Arduino::Pins::analogReference(uint8_t mode)
 	analog_reference = mode;
 }
 
-int Arduino::Pins::analogRead(uint8_t pin)
+int Arduino328Ppp::Pins::analogRead(uint8_t pin)
 {
 
 #if defined(analogPinToChannel)
@@ -101,7 +101,7 @@ int Arduino::Pins::analogRead(uint8_t pin)
 // hardware support.  These are defined in the appropriate
 // pins_*.c file.  For the rest of the pins, we default
 // to digital output.
-void Arduino::Pins::analogWrite(uint8_t pin, int val)
+void Arduino328Ppp::Pins::analogWrite(uint8_t pin, int val)
 {
 	// We need to make sure the PWM output is enabled for those pins
 	// that support it, as we turn it off when digitally reading or
